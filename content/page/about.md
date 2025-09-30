@@ -1,5 +1,6 @@
 ---
-title: "About Matthew Greenwood: My Tech Transition"
+title: "About Matthew Greenwood"
+subtitle: "My Tech Transition"
 type: "about"
 ---
 
