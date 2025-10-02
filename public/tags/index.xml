@@ -8,13 +8,27 @@
     <language>en-us</language>
     <managingEditor>matthew@matthew-greenwood.com (Matthew Greenwood)</managingEditor>
     <webMaster>matthew@matthew-greenwood.com (Matthew Greenwood)</webMaster>
-    <lastBuildDate>Sat, 27 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://www.matthew-greenwood.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Agents</title>
+      <link>https://www.matthew-greenwood.com/tags/agents/</link>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
+      <guid>https://www.matthew-greenwood.com/tags/agents/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Hugging-Face</title>
       <link>https://www.matthew-greenwood.com/tags/hugging-face/</link>
-      <pubDate>Sat, 27 Sep 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
       <guid>https://www.matthew-greenwood.com/tags/hugging-face/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>https://www.matthew-greenwood.com/tags/llm/</link>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
+      <guid>https://www.matthew-greenwood.com/tags/llm/</guid>
       <description></description>
     </item>
     <item>

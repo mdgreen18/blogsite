@@ -2,25 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.matthew-greenwood.com/tags/hugging-face/</loc>
-    <lastmod>2025-09-27T00:00:00+00:00</lastmod>
+    <loc>https://www.matthew-greenwood.com/tags/agents/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.matthew-greenwood.com/tags/hugo/</loc>
-    <lastmod>2025-09-27T00:00:00+00:00</lastmod>
+    <loc>https://www.matthew-greenwood.com/tags/hugging-face/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthew-greenwood.com/tags/llm/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthew-greenwood.com/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthew-greenwood.com/posts/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthew-greenwood.com/tags/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthew-greenwood.com/posts/unit-1-hf/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthew-greenwood.com/tags/hugo/</loc>
     <lastmod>2025-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthew-greenwood.com/posts/first-blog/</loc>
     <lastmod>2025-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthew-greenwood.com/tags/obsidian/</loc>
-    <lastmod>2025-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.matthew-greenwood.com/posts/</loc>
-    <lastmod>2025-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.matthew-greenwood.com/tags/</loc>
     <lastmod>2025-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthew-greenwood.com/page/about/</loc>

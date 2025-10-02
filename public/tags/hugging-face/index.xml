@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>matthew@matthew-greenwood.com (Matthew Greenwood)</managingEditor>
     <webMaster>matthew@matthew-greenwood.com (Matthew Greenwood)</webMaster>
-    <lastBuildDate>Sat, 27 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://www.matthew-greenwood.com/tags/hugging-face/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unit 1 AI Agent Course</title>
+      <link>https://www.matthew-greenwood.com/posts/unit-1-hf/</link>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
+      <guid>https://www.matthew-greenwood.com/posts/unit-1-hf/</guid>
+      <description>&lt;h2 id=&#34;ai-agents-what-are-they-&#34;&gt;AI Agents: What are they? 🕵🏻&lt;/h2&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s be clear off the bat, an AI agent isn&amp;rsquo;t like Agent Smith from the Matrix. Well not yet at least&amp;hellip;&lt;/p&gt;&#xA;&lt;p&gt;An &lt;strong&gt;AI agent&lt;/strong&gt; is essentially a system that can reason, plan, and interact with its environment to achieve a goal set by the user. It&amp;rsquo;s a goal-oriented machine.&lt;/p&gt;&#xA;&lt;p&gt;An agent is made up of two main components. The first is the &lt;strong&gt;LLM&lt;/strong&gt; (Large Language Model), which is the &lt;strong&gt;brain&lt;/strong&gt; of the system. The LLM allows the agent to understand your natural language, handle the reasoning, and plan the actions it will take. The second component is the &lt;strong&gt;body&lt;/strong&gt;—the &lt;strong&gt;tools&lt;/strong&gt; the agent uses to interact with the world. These tools can be simple programs the agent calls upon, or more complex APIs that access real-time data.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>My first blog post</title>
       <link>https://www.matthew-greenwood.com/posts/first-blog/</link>
