@@ -1,0 +1,36 @@
+type User @table {
+  username: String!
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  bio: String
+  profilePictureUrl: String
+}
+
+type Post @table {
+  author: User!
+  title: String!
+  content: String!
+  createdAt: Timestamp!
+  slug: String
+  imageUrl: String
+}
+
+type Comment @table {
+  commenter: User!
+  post: Post!
+  content: String!
+  createdAt: Timestamp!
+}
+
+type PostLike @table(key: ["user", "post"]) {
+  user: User!
+  post: Post!
+  createdAt: Timestamp!
+}
+
+type CommentLike @table(key: ["user", "comment"]) {
+  user: User!
+  comment: Comment!
+  createdAt: Timestamp!
+}
