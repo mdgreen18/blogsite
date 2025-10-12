@@ -20,5 +20,21 @@
         "npm --prefix \"$RESOURCE_DIR\" run lint"
       ]
     }
-  ]
+  ],
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/__/auth/**",
+        "destination": "/index.html"
+      }
+      // Add a general fallback for your SPA/static site if necessary,
+      // but the auth rewrite must come first.
+      // e.g., for a Single Page App (SPA):
+      // {
+      //   "source": "**",
+      //   "destination": "/index.html"
+      // }
+    ]
+  }
 }
