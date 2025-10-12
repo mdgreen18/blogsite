@@ -1,0 +1,135 @@
+{{ define "main" }}
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        {{ .Content }}
+
+        <div id="like-button-container-{{ .File.UniqueID }}" style="margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+          <button id="like-button-{{ .File.UniqueID }}" data-post-id="{{ .File.UniqueID }}">
+            👍 Like (<span id="like-count-{{ .File.UniqueID }}">0</span>)
+          </button>
+        </div>
+
+        <div id="comments-section">
+            <h3>Comments (<span id="comment-count-{{ .File.UniqueID }}">0</span>)</h3>
+            <div id="comments-list-{{ .File.UniqueID }}" class="comments-list"></div>
+
+            <div id="auth-ui-{{ .File.UniqueID }}" style="margin-top: 20px;">
+                </div>
+
+            <div id="comment-form-container-{{ .File.UniqueID }}" style="display: none;">
+                <h4>Leave a comment</h4>
+                <form id="comment-form-{{ .File.UniqueID }}" class="comment-form">
+                    <input type="text" placeholder="Your Name" required class="comment-username" id="comment-username-{{ .File.UniqueID }}" name="username" autocomplete="name">
+                    <textarea placeholder="Your comment..." required class="comment-text" id="comment-text-{{ .File.UniqueID }}" name="commentBody" autocomplete="off"></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // Get the unique post ID from the Hugo context
+            const postId = '{{ .File.UniqueID }}'; 
+            const commentFormId = `comment-form-${postId}`;
+
+            // COMMENTS: Set up the real-time listener for comments
+            if (window.setupCommentListener) {
+                window.setupCommentListener(postId, (comments) => {
+                const listElement = document.getElementById(`comments-list-${postId}`);
+                const countElement = document.getElementById(`comment-count-${postId}`);
+
+                    // Update the count
+                    if (countElement) {
+                        countElement.textContent = comments.length;
+                    }
+            
+                    // Render the comments (You'll need a renderComments function)
+                    if (listElement) {
+                        listElement.innerHTML = comments.map(c => 
+                            `<div><strong>${c.username}</strong>: ${c.comment}</div>`
+                        ).join('');
+                    }
+                });
+            }
+
+            // COMMENTS: Handle the form submission
+            const formElement = document.getElementById(commentFormId);
+            if (formElement) {
+                formElement.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Stop the default page refresh
+
+                    const username = document.getElementById(`comment-username-${postId}`).value;
+                    const comment = document.getElementById(`comment-text-${postId}`).value;
+            
+                    if (window.saveComment) {
+                        window.saveComment(postId, username, comment)
+                            .then(() => {
+                                console.log("Comment saved!");
+                                // Clear the form fields after successful save
+                                formElement.reset();
+                            })
+                            .catch(error => {
+                                alert("Error saving comment. Please check console for details.");
+                                console.error("Error saving comment:", error);
+                            });
+                    }
+                });
+            }
+
+</script>
+
+        {{ if .Params.tags }}
+          <div class="blog-tags">
+            {{ range .Params.tags }}
+              <a href="{{"tags" | absLangURL}}/{{ . | urlize }}/">{{ . }}</a>&nbsp;
+            {{ end }}
+          </div>
+        {{ end }}
+
+        {{ if $.Param "socialShare" }}
+          <hr/>
+          <section id="social-share">
+            <div class="list-inline footer-links">
+              {{ partial "share-links" . }}
+            </div>
+          </section>
+        {{ end }}
+
+        {{ if .Site.Params.showRelatedPosts }}
+          {{ range first 1 (where (where .Site.Pages ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
+            {{ $.Scratch.Set "has_related" true }}
+          {{ end }}
+
+          {{ if $.Scratch.Get "has_related" }}
+                    <h4 class="see-also">{{ i18n "seeAlso" }}</h4>
+                    <ul>
+                  {{ $num_to_show := .Site.Params.related_content_limit | default 5 }}
+                  {{ range first $num_to_show (where (where .Site.Pages ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
+                    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                  {{ end }}
+                </ul>
+
+          {{ end }}
+        {{ end }}
+      </article>
+
+      {{ if ne .Type "page" }}
+        <ul class="pager blog-pager">
+          {{ if .PrevInSection }}
+            <li class="previous">
+              <a href="{{ .PrevInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .PrevInSection.Title }}">&larr; {{ i18n "previousPost" }}</a>
+            </li>
+          {{ end }}
+          {{ if .NextInSection }}
+            <li class="next">
+              <a href="{{ .NextInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .NextInSection.Title }}">{{ i18n "nextPost" }} &rarr;</a>
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+      
+    </div>
+  </div>
+</div>
+{{ end }}

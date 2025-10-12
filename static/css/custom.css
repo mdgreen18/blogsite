@@ -1,0 +1,91 @@
+/* static/css/custom.css */
+
+/* =================================================== */
+/* REVISED STYLES FOR DARK BACKGROUND (Increased Specificity) */
+/* =================================================== */
+
+/* Darker background for the main comment section container */
+/* We use the ID selector which has high specificity */
+#comments-section {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 2rem;
+    /* --- ADDED DARK BACKGROUND AND TEXT COLOR --- */
+    background-color: #34495e; /* Dark Blue-Grey for the entire section */
+    color: #ecf0f1; /* Light text for high contrast */
+    border-radius: 8px;
+    border: none; /* Remove any border that might interfere */
+}
+
+/* Darker background for individual top-level comments */
+.comment.top-level {
+    border-left: 3px solid #ccc;
+    padding: 10px 15px;
+    margin-top: 15px;
+    /* --- ADDED DARK BACKGROUND --- */
+    background-color: #44607d; 
+    border-radius: 4px;
+}
+
+/* Darker background for individual replies */
+.comment.reply {
+    border-left: 3px solid #ddd;
+    padding: 10px 15px;
+    margin-top: 10px;
+    /* --- ADDED DARK BACKGROUND --- */
+    background-color: #5d7d9a; 
+    border-radius: 4px;
+}
+
+/* Styling the forms to either be dark or clearly contrast with the dark background */
+.comment-form, .reply-form {
+    margin-top: 15px;
+    padding: 10px;
+    /* Change to a darker background or a transparent one to blend with #comments-section */
+    background-color: #2c3e50; /* Slightly darker than the main section for depth */
+    border: 1px solid #44607d; /* Darker border */
+}
+
+button {
+    /* Style all generic button elements */
+    background-color: #27ae60 !important; /* Forces the dark color */
+    color: white !important;
+    border: none !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #22995e !important;
+}
+
+/* =================================================== */
+/* ORIGINAL CODE BELOW */
+/* =================================================== */
+
+.replies-list {
+    margin-left: 20px; /* Indent replies */
+    padding-left: 10px;
+}
+
+.comment-form input, .comment-form textarea,
+.reply-form input, .reply-form textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    /* Ensure form inputs have a light background for visibility */
+    background-color: white;
+    color: #333;
+}
+
+.comment-form input[type="submit"]:hover,
+.reply-form input[type="submit"]:hover,
+.comment-form button:hover,
+.reply-form button:hover {
+    background-color: #27ae60;
+} */

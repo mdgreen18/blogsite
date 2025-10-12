@@ -1,0 +1,23 @@
+{{ $firebaseVersion := "12.4.0" }}
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDrp8SKvAvZdpvbsYARzIOMH9HPQypCfLY",
+        authDomain: "matthew-greenwood.com",
+        projectId: "comments-likes",
+        storageBucket: "comments-likes.firebasestorage.app",
+        messagingSenderId: "385214375813",
+        appId: "1:385214375813:web:19c081628c1f676c3f86ec",
+        measurementId: "G-Z830D7DHG2"
+    };
+
+    // Make the config available to your module script if needed, although 
+    // it's usually passed to initializeApp within your module script.
+    window.firebaseConfig = firebaseConfig;
+</script>
+
+<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-auth.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-database.js"></script>
+
+<script type="module" src="{{"/js/firebase.js" | relURL }}"></script>
