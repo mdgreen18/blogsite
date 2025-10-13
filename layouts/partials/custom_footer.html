@@ -1,23 +1,177 @@
-{{ $firebaseVersion := "12.4.0" }}
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signInAnonymously,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    doc,
+    addDoc,
+    getDocs,
+    updateDoc,
+    setDoc,
+    getDoc,
+    increment,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDrp8SKvAvZdpvbsYARzIOMH9HPQypCfLY",
-        authDomain: "matthew-greenwood.com",
-        projectId: "comments-likes",
-        storageBucket: "comments-likes.firebasestorage.app",
-        messagingSenderId: "385214375813",
-        appId: "1:385214375813:web:19c081628c1f676c3f86ec",
-        measurementId: "G-Z830D7DHG2"
-    };
+document.addEventListener("DOMContentLoaded", async () => {
+  // ✅ Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrp8SKvAvZdpvbsYARzIOMH9HPQypCfLY",
+    authDomain: "comments-likes.firebaseapp.com",
+    projectId: "comments-likes",
+    storageBucket: "comments-likes.firebasestorage.app",
+    messagingSenderId: "385214375813",
+    appId: "1:385214375813:web:19c081628c1f676c3f86ec",
+    measurementId: "G-Z830D7DHG2"
+  };
 
-    // Make the config available to your module script if needed, although 
-    // it's usually passed to initializeApp within your module script.
-    window.firebaseConfig = firebaseConfig;
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // ✅ Element references
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+  const commentForm = document.getElementById("comment-form");
+  const commentsList = document.getElementById("comments-list");
+  const userInfo = document.getElementById("user-info");
+  const signInGoogle = document.getElementById("btn-signin-google");
+  const signInAnon = document.getElementById("btn-signin-anon");
+  const signOutBtn = document.getElementById("btn-signout");
+
+  // ✅ If components are missing, stop execution
+  if (!likeBtn || !commentForm || !commentsList) {
+    console.warn("Comment or like components not found on this page.");
+    return;
+  }
+
+  // Identify the post by permalink
+  const postId = window.HUGO_PAGE_KEY || "default-post";
+  const postRef = doc(db, "posts", postId);
+  const commentsRef = collection(db, "posts", postId, "comments");
+
+  // 🔹 AUTHENTICATION
+  signInGoogle?.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (err) {
+      console.error("Google sign-in failed:", err);
+      alert("Google sign-in failed. Check console for details.");
+    }
+  });
+
+  signInAnon?.addEventListener("click", async () => {
+    try {
+      await signInAnonymously(auth);
+    } catch (err) {
+      console.error("Anonymous sign-in failed:", err);
+      alert("Anonymous sign-in failed. Enable it in Firebase console.");
+    }
+  });
+
+  signOutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userInfo.textContent = user.displayName || "Guest User";
+      signInGoogle.style.display = "none";
+      signInAnon.style.display = "none";
+      signOutBtn.style.display = "inline-block";
+      commentForm.style.display = "block";
+    } else {
+      userInfo.textContent = "Not signed in";
+      signInGoogle.style.display = "inline-block";
+      signInAnon.style.display = "inline-block";
+      signOutBtn.style.display = "none";
+      commentForm.style.display = "none";
+    }
+  });
+
+  // 🔹 LIKES
+  likeBtn.addEventListener("click", async () => {
+    try {
+      const key = `liked-${postId}`;
+      if (!localStorage.getItem(key)) {
+        // Use setDoc with merge to create the document if it doesn't exist
+        await setDoc(postRef, { likes: increment(1) }, { merge: true });
+        localStorage.setItem(key, "true");
+        alert("You liked this post!");
+        await updateLikeCount();
+      } else {
+        alert("You already liked this post.");
+      }
+    } catch (err) {
+      console.error("Error updating like:", err);
+    }
+  });
+
+async function updateLikeCount() {
+  try {
+    const docSnap = await getDoc(postRef);
+    if (docSnap.exists()) {
+      likeCount.textContent = docSnap.data().likes || 0;
+    } else {
+      likeCount.textContent = 0;
+    }
+  } catch (err) {
+    console.error("Error fetching likes:", err);
+  }
+}
+
+  // 🔹 COMMENTS
+  commentForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const commentText = document.getElementById("commentText").value.trim();
+    const authorName = document.getElementById("authorName").value.trim();
+    if (!commentText) return;
+
+    const user = auth.currentUser;
+    const name = authorName || (user?.displayName || "Anonymous");
+
+    try {
+      await addDoc(commentsRef, {
+        name,
+        text: commentText,
+        timestamp: serverTimestamp(),
+      });
+      e.target.reset();
+      await loadComments();
+    } catch (err) {
+      console.error("Error adding comment:", err);
+    }
+  });
+
+  async function loadComments() {
+    commentsList.innerHTML = "";
+    try {
+      const snapshot = await getDocs(commentsRef);
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("comment");
+        div.innerHTML = `<p><strong>${data.name}</strong>: ${data.text}</p>`;
+        commentsList.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Error loading comments:", err);
+    }
+  }
+
+  // Initial load
+  await loadComments();
+  await updateLikeCount();
+});
 </script>
 
-<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-auth.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/{{ $firebaseVersion }}/firebase-database.js"></script>
-
-<script type="module" src="{{"/js/firebase.js" | relURL }}"></script>

@@ -66,8 +66,8 @@ button:hover {
 /* ORIGINAL CODE BELOW */
 /* =================================================== */
 
-.replies-list {
-    margin-left: 20px; /* Indent replies */
+/*.replies-list {
+    margin-left: 20px; /* Indent replies 
     padding-left: 10px;
 }
 
@@ -78,7 +78,7 @@ button:hover {
     margin-bottom: 8px;
     padding: 8px;
     box-sizing: border-box;
-    /* Ensure form inputs have a light background for visibility */
+    /* Ensure form inputs have a light background for visibility 
     background-color: white;
     color: #333;
 }
@@ -89,3 +89,38 @@ button:hover {
 .reply-form button:hover {
     background-color: #27ae60;
 } */
+
+/* ==============================
+   Comments Form Styles for Dark Background
+   ============================== */
+#comment-form input,
+#comment-form textarea {
+    background-color: #2c3e50 !important;   /* dark background to match #comments-section */
+    color: #ecf0f1 !important;              /* light text for visibility */
+    border: 1px solid #44607d;   /* subtle border */
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#comment-form input::placeholder,
+#comment-form textarea::placeholder {
+    color: #bdc3c7 !important; /* lighter gray placeholder text */
+}
+
+#comment-form button {
+    background-color: #27ae60; /* green button */
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#comment-form button:hover {
+    background-color: #22995e !important;
+}
+

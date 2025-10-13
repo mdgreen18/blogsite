@@ -1,0 +1,29 @@
+<div id="like-component" class="like-wrapper">
+  <button id="like-btn" class="btn">👍 Like</button>
+  <span id="like-count">0</span>
+</div>
+
+<div id="comments-component" class="comments-wrapper">
+  <h3>Comments</h3>
+  <div id="comment-auth" class="comment-auth">
+    <span id="user-info">Not signed in</span>
+    <button id="btn-signin-google" class="btn">Sign in with Google</button>
+    <button id="btn-signin-anon" class="btn">Continue as Guest</button>
+    <button id="btn-signout" class="btn" style="display:none">Sign out</button>
+  </div>
+
+  <form id="comment-form" style="display:none">
+    <label for="authorName">Name</label>
+    <input id="authorName" name="authorName" placeholder="Your name (optional)" />
+    <label for="commentText">Comment</label>
+    <textarea id="commentText" name="commentText" rows="4" placeholder="Write your comment..."></textarea>
+    <button type="submit" id="comment-submit" class="btn">Post comment</button>
+  </form>
+
+  <div id="comments-list" class="comments-list"></div>
+</div>
+
+<script>
+  window.HUGO_PAGE_KEY = "{{ .File.BaseFileName | safeJS }}";
+</script>
+

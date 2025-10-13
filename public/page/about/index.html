@@ -107,6 +107,7 @@
 
     <link rel="stylesheet" href="/css/custom.css">
 
+    <link rel="stylesheet" href="/css/custom.css">
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -279,80 +280,35 @@
 </li>
 </ul>
 
+        <div id="like-component" class="like-wrapper">
+  <button id="like-btn" class="btn">👍 Like</button>
+  <span id="like-count">0</span>
+</div>
 
-        <div id="like-button-container-405ba581599f556cd14af94d199e20b1" style="margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #eee;">
-          <button id="like-button-405ba581599f556cd14af94d199e20b1" data-post-id="405ba581599f556cd14af94d199e20b1">
-            👍 Like (<span id="like-count-405ba581599f556cd14af94d199e20b1">0</span>)
-          </button>
-        </div>
+<div id="comments-component" class="comments-wrapper">
+  <h3>Comments</h3>
+  <div id="comment-auth" class="comment-auth">
+    <span id="user-info">Not signed in</span>
+    <button id="btn-signin-google" class="btn">Sign in with Google</button>
+    <button id="btn-signin-anon" class="btn">Continue as Guest</button>
+    <button id="btn-signout" class="btn" style="display:none">Sign out</button>
+  </div>
 
-        <div id="comments-section">
-            <h3>Comments (<span id="comment-count-405ba581599f556cd14af94d199e20b1">0</span>)</h3>
-            <div id="comments-list-405ba581599f556cd14af94d199e20b1" class="comments-list"></div>
+  <form id="comment-form" style="display:none">
+    <label for="authorName">Name</label>
+    <input id="authorName" name="authorName" placeholder="Your name (optional)" />
+    <label for="commentText">Comment</label>
+    <textarea id="commentText" name="commentText" rows="4" placeholder="Write your comment..."></textarea>
+    <button type="submit" id="comment-submit" class="btn">Post comment</button>
+  </form>
 
-            <div id="auth-ui-405ba581599f556cd14af94d199e20b1" style="margin-top: 20px;">
-                </div>
+  <div id="comments-list" class="comments-list"></div>
+</div>
 
-            <div id="comment-form-container-405ba581599f556cd14af94d199e20b1" style="display: none;">
-                <h4>Leave a comment</h4>
-                <form id="comment-form-405ba581599f556cd14af94d199e20b1" class="comment-form">
-                    <input type="text" placeholder="Your Name" required class="comment-username" id="comment-username-405ba581599f556cd14af94d199e20b1" name="username" autocomplete="name">
-                    <textarea placeholder="Your comment..." required class="comment-text" id="comment-text-405ba581599f556cd14af94d199e20b1" name="commentBody" autocomplete="off"></textarea>
-                    <button type="submit">Post Comment</button>
-                </form>
-            </div>
-        </div>
-
-        <script>
-            
-            const postId = '405ba581599f556cd14af94d199e20b1'; 
-            const commentFormId = `comment-form-${postId}`;
-
-            
-            if (window.setupCommentListener) {
-                window.setupCommentListener(postId, (comments) => {
-                const listElement = document.getElementById(`comments-list-${postId}`);
-                const countElement = document.getElementById(`comment-count-${postId}`);
-
-                    
-                    if (countElement) {
-                        countElement.textContent = comments.length;
-                    }
-            
-                    
-                    if (listElement) {
-                        listElement.innerHTML = comments.map(c => 
-                            `<div><strong>${c.username}</strong>: ${c.comment}</div>`
-                        ).join('');
-                    }
-                });
-            }
-
-            
-            const formElement = document.getElementById(commentFormId);
-            if (formElement) {
-                formElement.addEventListener('submit', function(e) {
-                    e.preventDefault(); 
-
-                    const username = document.getElementById(`comment-username-${postId}`).value;
-                    const comment = document.getElementById(`comment-text-${postId}`).value;
-            
-                    if (window.saveComment) {
-                        window.saveComment(postId, username, comment)
-                            .then(() => {
-                                console.log("Comment saved!");
-                                
-                                formElement.reset();
-                            })
-                            .catch(error => {
-                                alert("Error saving comment. Please check console for details.");
-                                console.error("Error saving comment:", error);
-                            });
-                    }
-                });
-            }
-
+<script>
+  window.HUGO_PAGE_KEY = "about";
 </script>
+
 
         
 
@@ -517,29 +473,183 @@
 
 
 
-    
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signInAnonymously,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    doc,
+    addDoc,
+    getDocs,
+    updateDoc,
+    setDoc,
+    getDoc,
+    increment,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDrp8SKvAvZdpvbsYARzIOMH9HPQypCfLY",
-        authDomain: "matthew-greenwood.com",
-        projectId: "comments-likes",
-        storageBucket: "comments-likes.firebasestorage.app",
-        messagingSenderId: "385214375813",
-        appId: "1:385214375813:web:19c081628c1f676c3f86ec",
-        measurementId: "G-Z830D7DHG2"
-    };
+document.addEventListener("DOMContentLoaded", async () => {
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrp8SKvAvZdpvbsYARzIOMH9HPQypCfLY",
+    authDomain: "comments-likes.firebaseapp.com",
+    projectId: "comments-likes",
+    storageBucket: "comments-likes.firebasestorage.app",
+    messagingSenderId: "385214375813",
+    appId: "1:385214375813:web:19c081628c1f676c3f86ec",
+    measurementId: "G-Z830D7DHG2"
+  };
 
-    
-    
-    window.firebaseConfig = firebaseConfig;
+  
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+  const commentForm = document.getElementById("comment-form");
+  const commentsList = document.getElementById("comments-list");
+  const userInfo = document.getElementById("user-info");
+  const signInGoogle = document.getElementById("btn-signin-google");
+  const signInAnon = document.getElementById("btn-signin-anon");
+  const signOutBtn = document.getElementById("btn-signout");
+
+  
+  if (!likeBtn || !commentForm || !commentsList) {
+    console.warn("Comment or like components not found on this page.");
+    return;
+  }
+
+  
+  const postId = window.HUGO_PAGE_KEY || "default-post";
+  const postRef = doc(db, "posts", postId);
+  const commentsRef = collection(db, "posts", postId, "comments");
+
+  
+  signInGoogle?.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (err) {
+      console.error("Google sign-in failed:", err);
+      alert("Google sign-in failed. Check console for details.");
+    }
+  });
+
+  signInAnon?.addEventListener("click", async () => {
+    try {
+      await signInAnonymously(auth);
+    } catch (err) {
+      console.error("Anonymous sign-in failed:", err);
+      alert("Anonymous sign-in failed. Enable it in Firebase console.");
+    }
+  });
+
+  signOutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userInfo.textContent = user.displayName || "Guest User";
+      signInGoogle.style.display = "none";
+      signInAnon.style.display = "none";
+      signOutBtn.style.display = "inline-block";
+      commentForm.style.display = "block";
+    } else {
+      userInfo.textContent = "Not signed in";
+      signInGoogle.style.display = "inline-block";
+      signInAnon.style.display = "inline-block";
+      signOutBtn.style.display = "none";
+      commentForm.style.display = "none";
+    }
+  });
+
+  
+  likeBtn.addEventListener("click", async () => {
+    try {
+      const key = `liked-${postId}`;
+      if (!localStorage.getItem(key)) {
+        
+        await setDoc(postRef, { likes: increment(1) }, { merge: true });
+        localStorage.setItem(key, "true");
+        alert("You liked this post!");
+        await updateLikeCount();
+      } else {
+        alert("You already liked this post.");
+      }
+    } catch (err) {
+      console.error("Error updating like:", err);
+    }
+  });
+
+async function updateLikeCount() {
+  try {
+    const docSnap = await getDoc(postRef);
+    if (docSnap.exists()) {
+      likeCount.textContent = docSnap.data().likes || 0;
+    } else {
+      likeCount.textContent = 0;
+    }
+  } catch (err) {
+    console.error("Error fetching likes:", err);
+  }
+}
+
+  
+  commentForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const commentText = document.getElementById("commentText").value.trim();
+    const authorName = document.getElementById("authorName").value.trim();
+    if (!commentText) return;
+
+    const user = auth.currentUser;
+    const name = authorName || (user?.displayName || "Anonymous");
+
+    try {
+      await addDoc(commentsRef, {
+        name,
+        text: commentText,
+        timestamp: serverTimestamp(),
+      });
+      e.target.reset();
+      await loadComments();
+    } catch (err) {
+      console.error("Error adding comment:", err);
+    }
+  });
+
+  async function loadComments() {
+    commentsList.innerHTML = "";
+    try {
+      const snapshot = await getDocs(commentsRef);
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("comment");
+        div.innerHTML = `<p><strong>${data.name}</strong>: ${data.text}</p>`;
+        commentsList.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Error loading comments:", err);
+    }
+  }
+
+  
+  await loadComments();
+  await updateLikeCount();
+});
 </script>
 
-<script type="module" src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js"></script>
-
-<script type="module" src="/js/firebase.js"></script>
 
     
   </body>

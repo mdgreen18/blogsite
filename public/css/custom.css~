@@ -66,8 +66,8 @@ button:hover {
 /* ORIGINAL CODE BELOW */
 /* =================================================== */
 
-/*.replies-list {
-    margin-left: 20px; /* Indent replies 
+.replies-list {
+    margin-left: 20px; /* Indent replies */
     padding-left: 10px;
 }
 
@@ -78,7 +78,7 @@ button:hover {
     margin-bottom: 8px;
     padding: 8px;
     box-sizing: border-box;
-    /* Ensure form inputs have a light background for visibility 
+    /* Ensure form inputs have a light background for visibility */
     background-color: white;
     color: #333;
 }
