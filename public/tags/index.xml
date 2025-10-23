@@ -2,47 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Matthew&#39;s Blog</title>
-    <link>https://www.matthew-greenwood.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Matthew&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>matthew@matthew-greenwood.com (Matthew Greenwood)</managingEditor>
     <webMaster>matthew@matthew-greenwood.com (Matthew Greenwood)</webMaster>
     <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.matthew-greenwood.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Agents</title>
-      <link>https://www.matthew-greenwood.com/tags/agents/</link>
+      <link>http://localhost:1313/tags/agents/</link>
       <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/tags/agents/</guid>
+      <guid>http://localhost:1313/tags/agents/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugging-Face</title>
-      <link>https://www.matthew-greenwood.com/tags/hugging-face/</link>
+      <link>http://localhost:1313/tags/hugging-face/</link>
       <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/tags/hugging-face/</guid>
+      <guid>http://localhost:1313/tags/hugging-face/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM</title>
-      <link>https://www.matthew-greenwood.com/tags/llm/</link>
+      <link>http://localhost:1313/tags/llm/</link>
       <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/tags/llm/</guid>
+      <guid>http://localhost:1313/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://www.matthew-greenwood.com/tags/hugo/</link>
+      <link>http://localhost:1313/tags/hugo/</link>
       <pubDate>Sat, 27 Sep 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/tags/hugo/</guid>
+      <guid>http://localhost:1313/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Obsidian</title>
-      <link>https://www.matthew-greenwood.com/tags/obsidian/</link>
+      <link>http://localhost:1313/tags/obsidian/</link>
       <pubDate>Sat, 27 Sep 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/tags/obsidian/</guid>
+      <guid>http://localhost:1313/tags/obsidian/</guid>
       <description></description>
     </item>
   </channel>

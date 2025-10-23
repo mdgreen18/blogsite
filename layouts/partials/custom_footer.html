@@ -3,8 +3,9 @@
   import {
     getAuth,
     GoogleAuthProvider,
+    FacebookAuthProvider,
+    GithubAuthProvider,
     signInWithPopup,
-    signInAnonymously,
     signOut,
     onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -37,7 +38,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
   // ✅ Element references
   const likeBtn = document.getElementById("like-btn");
@@ -45,8 +48,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const commentForm = document.getElementById("comment-form");
   const commentsList = document.getElementById("comments-list");
   const userInfo = document.getElementById("user-info");
-  const signInGoogle = document.getElementById("btn-signin-google");
-  const signInAnon = document.getElementById("btn-signin-anon");
+  const btnGoogle = document.getElementById("btn-signin-google");
+  const btnFacebook = document.getElementById("btn-signin-facebook");
+  const btnGithub = document.getElementById("btn-signin-github");
   const signOutBtn = document.getElementById("btn-signout");
 
   // ✅ If components are missing, stop execution
@@ -61,21 +65,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   const commentsRef = collection(db, "posts", postId, "comments");
 
   // 🔹 AUTHENTICATION
-  signInGoogle?.addEventListener("click", async () => {
+  btnGoogle?.addEventListener("click", async () => {
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, googleProvider);
     } catch (err) {
       console.error("Google sign-in failed:", err);
       alert("Google sign-in failed. Check console for details.");
     }
   });
 
-  signInAnon?.addEventListener("click", async () => {
+  btnFacebook?.addEventListener("click", async () => {
     try {
-      await signInAnonymously(auth);
-    } catch (err) {
-      console.error("Anonymous sign-in failed:", err);
-      alert("Anonymous sign-in failed. Enable it in Firebase console.");
+      await signInWithPopup(auth, facebookProvider);
+    } catch (e) {
+      console.error("Facebook sign-in failed:", e);
+    }
+  });
+
+  btnGithub?.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, githubProvider);
+    } catch (e) {
+      console.error("Github sign-in failed:", e);
     }
   });
 
@@ -86,14 +97,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       userInfo.textContent = user.displayName || "Guest User";
-      signInGoogle.style.display = "none";
-      signInAnon.style.display = "none";
+      btnGoogle.style.display = "none";
+      btnFacebook.style.display = "none";
+      btnGithub.style.display = "none";
       signOutBtn.style.display = "inline-block";
       commentForm.style.display = "block";
     } else {
       userInfo.textContent = "Not signed in";
-      signInGoogle.style.display = "inline-block";
-      signInAnon.style.display = "inline-block";
+      btnGoogle.style.display = "inline-block";
+      btnFacebook.style.display = "inline-block";
+      btnGithub.style.display = "inline-block";
       signOutBtn.style.display = "none";
       commentForm.style.display = "none";
     }

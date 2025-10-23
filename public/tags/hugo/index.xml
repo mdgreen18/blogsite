@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on Matthew&#39;s Blog</title>
-    <link>https://www.matthew-greenwood.com/tags/hugo/</link>
+    <link>http://localhost:1313/tags/hugo/</link>
     <description>Recent content in Hugo on Matthew&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>matthew@matthew-greenwood.com (Matthew Greenwood)</managingEditor>
     <webMaster>matthew@matthew-greenwood.com (Matthew Greenwood)</webMaster>
     <lastBuildDate>Sat, 27 Sep 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.matthew-greenwood.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My first blog post</title>
-      <link>https://www.matthew-greenwood.com/posts/first-blog/</link>
+      <link>http://localhost:1313/posts/first-blog/</link>
       <pubDate>Sat, 27 Sep 2025 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
-      <guid>https://www.matthew-greenwood.com/posts/first-blog/</guid>
+      <guid>http://localhost:1313/posts/first-blog/</guid>
       <description>&lt;p&gt;Hello, World! My name is Matthew and this is my first foray into blogging. I am a husband, father, and all around nerd. Never really been one to talk about myself much but hoping this will make it easier to put myself out there for the world to see. I have a bachelor&amp;rsquo;s degree in Computer Science with emphasis in Game and Simulation Programming and still staying up-to-date on current trends as much as I can. Looking to get my foot in the door in the tech field still as I am very determined to get my career going into full swing.&lt;/p&gt;</description>
     </item>
   </channel>
