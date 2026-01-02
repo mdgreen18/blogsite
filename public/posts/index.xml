@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>matthew@matthew-greenwood.com (Matthew Greenwood)</managingEditor>
     <webMaster>matthew@matthew-greenwood.com (Matthew Greenwood)</webMaster>
-    <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Momentum: My Path Forward in 2026</title>
+      <link>http://localhost:1313/posts/new-year-2026/</link>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 +0000</pubDate><author>matthew@matthew-greenwood.com (Matthew Greenwood)</author>
+      <guid>http://localhost:1313/posts/new-year-2026/</guid>
+      <description>&lt;p&gt;It’s been a while since my last update. To be honest, I got a bit off track from what I wanted to accomplish—but looking back, I realize that &amp;ldquo;distractions&amp;rdquo; are often just different forms of progress.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-deep-dive-distraction&#34;&gt;The &amp;ldquo;Deep Dive&amp;rdquo; Distraction&lt;/h2&gt;&#xA;&lt;p&gt;After my last post, I fell down a rabbit hole trying to build a custom like button and comments section for this site. While there were definitely easier out-of-the-box solutions, I chose to utilize &lt;strong&gt;Google Firebase&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Unit 1 AI Agent Course</title>
       <link>http://localhost:1313/posts/unit-1-hf/</link>
